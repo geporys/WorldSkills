@@ -2,12 +2,18 @@ import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import { useHistory } from 'react-router-dom';
 
-const Routes = () => {
+const routes = ['cashier', 'store'];
+
+const RouteTabs = () => {
+  const history = useHistory();
+
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    history.push(routes[newValue]);
   };
 
   return (
@@ -26,4 +32,4 @@ const Routes = () => {
   );
 };
 
-export default Routes;
+export default RouteTabs;
