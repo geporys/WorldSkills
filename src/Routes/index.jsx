@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Cashier from '../Cashier';
+import Shop from "../Shop";
 
 const Routes = () => {
   return (
@@ -9,7 +10,7 @@ const Routes = () => {
         <Cashier />
       </Route>
       <Route path="/store">
-        <h1>2</h1>
+        <Shop/>
       </Route>
     </Switch>
   );
