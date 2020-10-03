@@ -8,7 +8,6 @@ const App = () => {
   return (
     <Router>
       <Header />
-      <Tabs />
       <Routes />
     </Router>
   );
