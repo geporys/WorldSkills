@@ -1,13 +1,12 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Header from './Header';
-import Routes from './Routes';
+import Tabs from './Tabs';
 
 const App = () => {
   return (
     <div>
       <Header />
-      <Routes />
+      <Tabs />
     </div>
   );
 };
