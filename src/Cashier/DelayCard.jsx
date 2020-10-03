@@ -7,38 +7,15 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import Axios from 'axios';
 
-const options = {
-  title: {
-    text: 'My chart',
-  },
-  series: [
-    {
-      data: [1, 2, 3],
-    },
-  ],
-};
-
 const useStyles = makeStyles({
   root: {
     width: 500,
+    marginLeft: 64,
   },
 });
 
 const DelayCard = () => {
   const classes = useStyles();
-  const [state, setState] = useState([]);
-
-  const getState = async () => {
-    return await Axios.get(
-      'https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/usdeur.json'
-    );
-  };
-
-  useEffect(() => {
-    getState().then(({ data }) => {
-      setState(data);
-    });
-  }, []);
 
   return (
     <Card className={classes.root}>
@@ -50,68 +27,180 @@ const DelayCard = () => {
           highcharts={Highcharts}
           options={{
             chart: {
-              zoomType: 'x',
+              zoomType: 'xy',
             },
             title: {
-              text: 'Средний чек на кассe',
+              text: 'Задержка кассовых аппаратов',
+              align: 'left',
             },
-            subtitle: {
-              text:
-                document.ontouchstart === undefined
-                  ? 'Проведите по графику, чтобы призумить'
-                  : 'Нажмите на график, чтобы призумить',
-            },
-            xAxis: {
-              type: 'datetime',
-            },
-            yAxis: {
-              title: {
-                text: 'Среднее',
-              },
-            },
-            legend: {
-              enabled: false,
-            },
-            plotOptions: {
-              area: {
-                fillColor: {
-                  linearGradient: {
-                    x1: 0,
-                    y1: 0,
-                    x2: 0,
-                    y2: 1,
-                  },
-                  stops: [
-                    [0, Highcharts.getOptions().colors[0]],
-                    [
-                      1,
-                      Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba'),
-                    ],
-                  ],
-                },
-                marker: {
-                  radius: 2,
-                },
-                lineWidth: 1,
-                states: {
-                  hover: {
-                    lineWidth: 1,
-                  },
-                },
-                threshold: null,
-              },
-            },
-
-            series: [
+            xAxis: [
               {
-                type: 'area',
-                name: 'Средний чек в руб',
-                data: state.map((item, index) => [
-                  new Date('2020-10-03T08:00:00').setMilliseconds(index / 0.00005),
-                  item[1] * 1000,
-                ]),
+                categories: [
+                  'Касса 2',
+                  'Касса 4',
+                  'Касса 7',
+                  'Касса 13',
+                  'Касса 14',
+                  'Касса 10',
+                  'Касса 11',
+                  'Касса 1',
+                  'Касса 3',
+                  'Касса 9',
+                  'Касса 8',
+                  'Касса 6',
+                ],
+                crosshair: true,
               },
             ],
+            yAxis: [
+              {
+                // Primary yAxis
+                labels: {
+                  format: '{value}°C',
+                  style: {
+                    color: Highcharts.getOptions().colors[2],
+                  },
+                },
+                opposite: true,
+              },
+              {
+                // Secondary yAxis
+                gridLineWidth: 0,
+                title: {
+                  text: 'мс',
+                  style: {
+                    color: Highcharts.getOptions().colors[0],
+                  },
+                },
+                labels: {
+                  format: '{value} мс',
+                  style: {
+                    color: Highcharts.getOptions().colors[0],
+                  },
+                },
+              },
+              {
+                // Tertiary yAxis
+                gridLineWidth: 0,
+                title: {
+                  text: 'Рамзер данных',
+                  style: {
+                    color: Highcharts.getOptions().colors[1],
+                  },
+                },
+                labels: {
+                  format: '{value} mb',
+                  style: {
+                    color: Highcharts.getOptions().colors[1],
+                  },
+                },
+                opposite: true,
+              },
+            ],
+            tooltip: {
+              shared: true,
+            },
+            legend: {
+              layout: 'vertical',
+              align: 'left',
+              x: 80,
+              verticalAlign: 'top',
+              y: 55,
+              floating: true,
+              backgroundColor:
+                Highcharts.defaultOptions.legend.backgroundColor || // theme
+                'rgba(255,255,255,0.25)',
+            },
+            series: [
+              {
+                name: 'Время',
+                type: 'column',
+                yAxis: 1,
+                data: [
+                  49.9,
+                  71.5,
+                  106.4,
+                  129.2,
+                  144.0,
+                  176.0,
+                  135.6,
+                  148.5,
+                  216.4,
+                  194.1,
+                  95.6,
+                  54.4,
+                ],
+                tooltip: {
+                  valueSuffix: ' mm',
+                },
+              },
+              {
+                name: 'Размер',
+                type: 'spline',
+                yAxis: 2,
+                data: [
+                  1016,
+                  1016,
+                  1015.9,
+                  1015.5,
+                  1012.3,
+                  1009.5,
+                  1009.6,
+                  1010.2,
+                  1013.1,
+                  1016.9,
+                  1018.2,
+                  1016.7,
+                ],
+                marker: {
+                  enabled: false,
+                },
+                dashStyle: 'shortdot',
+                tooltip: {
+                  valueSuffix: ' mb',
+                },
+              },
+            ],
+            responsive: {
+              rules: [
+                {
+                  condition: {
+                    maxWidth: 500,
+                  },
+                  chartOptions: {
+                    legend: {
+                      floating: false,
+                      layout: 'horizontal',
+                      align: 'center',
+                      verticalAlign: 'bottom',
+                      x: 0,
+                      y: 0,
+                    },
+                    yAxis: [
+                      {
+                        labels: {
+                          align: 'right',
+                          x: 0,
+                          y: -6,
+                        },
+                        showLastLabel: false,
+                      },
+                      {
+                        labels: {
+                          align: 'left',
+                          x: 0,
+                          y: -6,
+                        },
+                        showLastLabel: false,
+                      },
+                      {
+                        visible: false,
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
           }}
         />
       </CardContent>
