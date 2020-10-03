@@ -19,7 +19,8 @@ const options = {
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 500,
+    minWidth: 500,
+
   },
 });
 

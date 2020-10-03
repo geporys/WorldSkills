@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import DelayCard from './DelayCard';
+import ErrorCard from "./ErrorCard";
 
 const useStyles = makeStyles({
   root: {
@@ -16,6 +17,7 @@ const Cashier = () => {
   return (
     <div className={classes.root}>
       <DelayCard />
+      <ErrorCard/>
     </div>
   );
 };
