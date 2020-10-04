@@ -39,10 +39,7 @@ const СheckCard = () => {
     );
 
     var element = document.createElement('a');
-    element.setAttribute(
-      'href',
-      'data:text/plain;charset=utf-8,' + encodeURIComponent(response?.data)
-    );
+    element.href = window.URL.createObjectURL(new Blob([response.data], { type: 'xlsx' }));
     element.setAttribute('download', 'data.xlsx');
 
     element.style.display = 'none';
