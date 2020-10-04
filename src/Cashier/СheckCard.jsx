@@ -34,7 +34,11 @@ const СheckCard = () => {
   }, []);
 
   const handleDownload = async () => {
-    await Axios.get('https://storage.yandexcloud.net/for-projects/excel.svg');
+    const response = await Axios.get(
+      'https://storage.yandexcloud.net/for-projects/data_check.xlsx'
+    );
+    console.log(response);
+    console.log(response?.data);
   };
 
   return (
