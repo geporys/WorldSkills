@@ -6,6 +6,9 @@ import Typography from '@material-ui/core/Typography';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import Axios from 'axios';
+import { ReactComponent as Excel } from '../img/excel.svg';
+import IconButton from '@material-ui/core/IconButton';
+import CardActions from '@material-ui/core/CardActions';
 
 const useStyles = makeStyles({
   root: {
@@ -29,6 +32,23 @@ const СheckCard = () => {
       setState(data);
     });
   }, []);
+
+  const handleDownload = async () => {
+    const response = await Axios.get(
+      'https://cloud-api.yandex.net/v1/disk/resources/download?path=disk%3A%2F171-351.docx',
+      {
+        headers: {
+          Authorization: 'OAuth AgAAAAAHSgwJAADLW4kVEDefckKXrouLv4e9J3M',
+        },
+      }
+    );
+
+    await Axios.get(response.data.href, {
+      headers: {
+        Authorization: 'OAuth AgAAAAAHSgwJAADLW4kVEDefckKXrouLv4e9J3M',
+      },
+    });
+  };
 
   return (
     <Card className={classes.root}>
@@ -105,6 +125,11 @@ const СheckCard = () => {
           }}
         />
       </CardContent>
+      <CardActions>
+        <IconButton onClick={handleDownload}>
+          <Excel />
+        </IconButton>
+      </CardActions>
     </Card>
   );
 };
