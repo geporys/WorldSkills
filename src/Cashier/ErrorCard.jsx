@@ -1,10 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+import IconButton from "@material-ui/core/IconButton";
+import {ReactComponent as Excel} from "../img/excel.svg";
+import CardActions from "@material-ui/core/CardActions";
+import Axios from "axios";
 
 var data = {
   2016: [
@@ -102,6 +106,10 @@ const useStyles = makeStyles({
 const ErrorCard = () => {
   const classes = useStyles();
 
+  const handleDownload = async () => {
+    await Axios.get('https://storage.yandexcloud.net/for-projects/Chastota_oshibok.xlsx');
+  };
+
   return (
     <Card className={classes.root}>
       <CardContent>
@@ -110,6 +118,11 @@ const ErrorCard = () => {
         </Typography>
         <HighchartsReact highcharts={Highcharts} options={options} />
       </CardContent>
+      <CardActions>
+        <IconButton onClick={handleDownload}>
+          <Excel />
+        </IconButton>
+      </CardActions>
     </Card>
   );
 };
