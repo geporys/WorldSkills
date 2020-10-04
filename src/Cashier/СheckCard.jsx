@@ -43,7 +43,7 @@ const СheckCard = () => {
     } else {
       // Others
       const a = document.createElement('a');
-      const url = window.URL.createObjectURL(response.data, { type: 'xlsx' });
+      const url = window.URL.createObjectURL(new Blob([response.data]));
       a.href = url;
       a.download = 'data.xlsx';
       document.body.appendChild(a);
