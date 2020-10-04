@@ -34,20 +34,7 @@ const СheckCard = () => {
   }, []);
 
   const handleDownload = async () => {
-    const response = await Axios.get(
-      'https://cloud-api.yandex.net/v1/disk/resources/download?path=disk%3A%2F171-351.docx',
-      {
-        headers: {
-          Authorization: 'OAuth AgAAAAAHSgwJAADLW4kVEDefckKXrouLv4e9J3M',
-        },
-      }
-    );
-
-    await Axios.get(response.data.href, {
-      headers: {
-        Authorization: 'OAuth AgAAAAAHSgwJAADLW4kVEDefckKXrouLv4e9J3M',
-      },
-    });
+    await Axios.get('https://storage.yandexcloud.net/for-projects/excel.svg');
   };
 
   return (
