@@ -37,7 +37,22 @@ const СheckCard = () => {
     const response = await Axios.get(
       'https://storage.yandexcloud.net/for-projects/data_check.xlsx'
     );
-    window.navigator.msSaveOrOpenBlob(response.data, 'data.xlsx');
+    if (window.navigator.msSaveOrOpenBlob) {
+      // IE10+
+      window.navigator.msSaveOrOpenBlob(response.data, 'data.xlsx');
+    } else {
+      // Others
+      const a = document.createElement('a');
+      const url = URL.createObjectURL(response.data);
+      a.href = url;
+      a.download = 'data.xlsx';
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => {
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      }, 0);
+    }
   };
 
   return (
