@@ -37,17 +37,7 @@ const СheckCard = () => {
     const response = await Axios.get(
       'https://storage.yandexcloud.net/for-projects/data_check.xlsx'
     );
-
-    var element = document.createElement('a');
-    element.href = window.URL.createObjectURL(new Blob([response.data], { type: 'xlsx' }));
-    element.setAttribute('download', 'data.xlsx');
-
-    element.style.display = 'none';
-    document.body.appendChild(element);
-
-    element.click();
-
-    document.body.removeChild(element);
+    window.navigator.msSaveOrOpenBlob(response.data, 'data.xlsx');
   };
 
   return (
